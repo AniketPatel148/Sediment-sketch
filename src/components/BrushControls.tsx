@@ -10,10 +10,16 @@ export default function BrushControls() {
   return (
     <div className="panel w-72 p-4">
       <div className="mb-4">
-        <div className="text-sm font-semibold mb-2">Brush Size</div>
-        <input type="range" min={1} max={50} value={size}
-               onChange={(e)=> setSize(parseInt(e.target.value))}
-               className="w-full"/>
+        <div className="text-sm font-semibold mb-2">Brush Size <span className="text-xs font-normal text-white/70">({size})</span></div>
+        <input
+          type="range"
+          min={1}
+          max={20}
+          step={1}
+          value={size}
+          onChange={(e) => setSize(parseInt(e.target.value))}
+          className="w-full"
+        />
       </div>
       <div className="mb-6">
         <div className="text-sm font-semibold mb-2">Brush Color</div>

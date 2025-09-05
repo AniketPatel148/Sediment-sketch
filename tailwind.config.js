@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         logo: ['Audiowide', 'ui-sans-serif', 'system-ui'],
+        display: ['"Rajdhani"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       colors: {
         sand: {
@@ -27,9 +28,6 @@ export default {
       },
       dropShadow: {
         logo: "0 1px 0 rgba(255,255,255,.4)",
-      },
-      fontFamily: {
-        display: ['"Rajdhani"', "ui-sans-serif", "system-ui", "sans-serif"],
       },
       letterSpacing: {
         wider2: ".08em",
