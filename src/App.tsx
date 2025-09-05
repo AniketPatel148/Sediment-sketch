@@ -12,7 +12,6 @@ export default function App() {
   return (
     <div>
       <Header />
-
       <main className="mx-auto max-w-6xl px-4 pt-4">
         <div className="grid grid-cols-1 md:grid-cols-[1fr,18rem] gap-6">
           <CanvasStage />

@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 /* App background: soft sand gradient */
+html, body, #root { height: 100%; }
+body { margin: 0; }
+
 body {
   @apply bg-gradient-to-b from-sand-100 via-sand-100 to-sand-200 text-stone-900;
 }
@@ -23,8 +26,8 @@ body {
 
 /* Cards / panels */
 .panel {
-  @apply rounded-xl border border-white/70 bg-gradient-to-b from-white/90 to-white/70
-         shadow-soft backdrop-blur;
+  @apply rounded-xl border border-white/70 bg-gradient-to-b from-sand-400 to-sand-600
+         shadow-soft backdrop-blur text-white;
 }
 .panel-tan {
   @apply rounded-xl border border-sand-700/20
@@ -52,9 +55,7 @@ body {
 .btn-secondary {
   @apply bg-white text-stone-800 border-stone-300 hover:bg-stone-50;
 }
-.btn-danger {
-  @apply bg-red-600 text-white border-red-700 hover:bg-red-700;
-}
+
 .btn-ghost {
   @apply bg-transparent text-stone-700 border-transparent hover:bg-white/60;
 }
@@ -74,5 +75,5 @@ body {
 
 /* Footer toolbar */
 .toolbar {
-  @apply mt-6 p-3 rounded-xl border border-white/60 bg-white/70 shadow-soft;
+  @apply mt-6 p-3 rounded-xl border border-white/60 bg-gradient-to-b from-sand-100 via-sand-100 to-sand-200 shadow-soft;
 }

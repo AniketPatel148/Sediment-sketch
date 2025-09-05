@@ -1,13 +1,16 @@
 export default function Header() {
   return (
-    <div className="header-bar">
-      <div className="header-inner">
-        <div className="logo">
-          <span>Sediment</span> <span className="opacity-90">Sketch</span>
+    <header className="sticky top-0 z-20">
+      {/* same warm bar as before */}
+      <div className="header-bar">
+        <div className="mx-auto max-w-6xl px-6 py-4">
+          <h1 className="font-display text-5xl tracking-wide text-white drop-shadow">
+            <span className="font-semibold">Sediment</span>{" "}
+            <span className="font-light">Sketch</span>
+          </h1>
         </div>
-        {/* Right side reserved for future (Help, About, etc.) */}
-        <div />
       </div>
-    </div>
+    </header>
   );
 }
+

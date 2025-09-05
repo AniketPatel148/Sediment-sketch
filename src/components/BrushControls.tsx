@@ -18,9 +18,11 @@ export default function BrushControls() {
       <div className="mb-6">
         <div className="text-sm font-semibold mb-2">Brush Color</div>
         <input type="color" value={color} onChange={(e)=> setColor(e.target.value)}
-               className="h-9 w-16 rounded border border-stone-400"/>
+               className="h-9 w-16 border border-stone-400"/>
       </div>
-      <button className="btn btn-danger w-full" onClick={clearOutlines}>Clear Canvas</button>
+      <button className="w-full px-4 py-2 rounded-md font-medium shadow
+             bg-sand-100 text-sand-900 border border-sand-200
+             hover:bg-sand-200 active:bg-sand-300" onClick={clearOutlines}>Clear Canvas</button>
     </div>
   );
 }

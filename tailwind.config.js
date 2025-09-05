@@ -3,6 +3,9 @@ export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        logo: ['Audiowide', 'ui-sans-serif', 'system-ui'],
+      },
       colors: {
         sand: {
           50:  "#f4efe9",
@@ -18,8 +21,9 @@ export default {
         },
       },
       boxShadow: {
-        soft: "0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.06)",
-        inset: "inset 0 1px 0 rgba(255,255,255,.4), inset 0 -1px 0 rgba(0,0,0,.06)",
+        soft: "0 6px 18px rgba(0,0,0,0.08)",
+        card: "0 10px 24px rgba(0,0,0,0.10)",
+        inset: "inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -1px 0 rgba(0,0,0,0.05)",
       },
       dropShadow: {
         logo: "0 1px 0 rgba(255,255,255,.4)",

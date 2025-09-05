@@ -22,7 +22,7 @@ export default function UploadButton() {
   };
 
   return (
-    <label className="btn cursor-pointer">
+    <label className="btn cursor-pointer btn-primary">
       <input type="file" accept="image/*" className="hidden" onChange={onChange} />
       Upload
     </label>

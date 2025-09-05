@@ -65,14 +65,14 @@ export default function ExportButton() {
   }, []);
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
+    <div className="flex flex-wrap items-center gap-2 bg-transparent">
       {/* Primary: Download Coordinates (All, TXT) */}
       <button
         className="btn btn-primary"
         onClick={() => exportAll("txt")}
         title="Download bounding boxes for all outlines as TXT"
       >
-        Download Coordinates
+        Download Co-ordinates
       </button>
 
       {/* Secondary: Download Coordinates (Selected, TXT) */}
@@ -81,7 +81,7 @@ export default function ExportButton() {
         onClick={() => exportSelected("txt")}
         title="Download bounding box for the selected outline as TXT"
       >
-        Download Coordinates (Selected)
+        Download Co-ordinates (Selected)
       </button>
 
       {/* Split dropdown: More formats */}
