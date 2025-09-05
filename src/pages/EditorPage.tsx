@@ -5,6 +5,7 @@ import BrushControls from "../components/BrushControls";
 import CanvasStage from "../components/CanvasStage";
 import ExportButton from "../components/ExportButton";
 import UploadButton from "../components/UploadButton";
+import StatusPanel from "../components/StatusPanel";
 import { useStore } from "../state/useStore";
 import type { ImageMeta } from "../types";
 
@@ -50,6 +51,7 @@ export default function EditorPage() {
           </section>
           <aside>
             <BrushControls />
+            <StatusPanel />
           </aside>
         </div>
 
