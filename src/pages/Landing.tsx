@@ -7,7 +7,7 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../lib/firebase";
-import { useAuth } from "../App";
+import { useAuth } from "../context/AuthContext";
 
 /** Simple header styled like your mock */
 function Header() {
@@ -21,6 +21,10 @@ function Header() {
     </header>
   );
 }
+
+export type LandingProps = {
+  onPickFile: (file: File) => void;
+};
 
 export default function Landing() {
   const { user } = useAuth();
@@ -88,7 +92,7 @@ export default function Landing() {
             <section className="panel text-white">
               <h2 className="mb-4 text-lg font-semibold">Sign in</h2>
               <button
-                className="btn btn-sand-200 w-full mb-4"
+                className="btn btn-secondary w-full mb-4"
                 onClick={doGoogle}
                 disabled={busy}
               >
@@ -125,7 +129,7 @@ export default function Landing() {
                       {mode === "signin" ? "Sign up" : "Sign in"}
                     </button>
                   </span>
-                  <button className="btn btn-sand-300" disabled={busy} type="submit">
+                  <button className="btn btn-primary" disabled={busy} type="submit">
                     {mode === "signin" ? "Sign in" : "Create account"}
                   </button>
                 </div>

@@ -77,3 +77,8 @@ body {
 .toolbar {
   @apply mt-6 p-3 rounded-xl border border-white/60 bg-gradient-to-b from-sand-100 via-sand-100 to-sand-200 shadow-soft;
 }
+
+/* Form inputs */
+.input {
+  @apply w-full rounded-lg border border-stone-300 bg-white/90 px-3 py-2 text-stone-900 shadow-sm placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-sand-400/60;
+}

@@ -42,10 +42,7 @@ export default function EditorPage() {
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-[18rem_1fr]">
           <aside>
-            <div className="panel p-4">
-              <h2 className="mb-3 text-lg font-semibold">Brush</h2>
-              <BrushControls />
-            </div>
+            <BrushControls />
           </aside>
           <section>
             {!image ? (
