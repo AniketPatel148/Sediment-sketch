@@ -165,11 +165,54 @@ The app stores points in image space. Exports represent what’s on screen:
 
 ## 🔮 Roadmap
 
-* [ ] Undo / Redo stack
-* [ ] Outlines panel (list, rename, toggle visibility)
-* [ ] Firestore persistence for projects/outlines
-* [ ] Multi-user project sharing
-* [ ] Auto-trace (edge detection + simplification)
+Core Editing & UX
+- [ ] Undo/redo history (stroke‑level with grouping)
+- [ ] Outlines panel: list, visibility toggle, rename, delete, reorder
+- [ ] Edit tools: move points, open/close path, smoothing toggles
+- [ ] Pen/polyline tool for straight segments; Shift to constrain angles
+- [ ] Eraser tool and lasso selection
+- [ ] Zoom/pan, fit to screen, reset view, and touch gestures
+- [ ] Mobile layout optimization
+
+Geometry & Analysis
+- [ ] Path simplification (Ramer–Douglas–Peucker) with tolerance slider
+- [ ] Curve smoothing and corner detection
+- [ ] Measurements: calibrated scale, lengths/perimeters/areas
+- [ ] Units (px ↔︎ mm/cm/in) with calibration overlay
+- [ ] Snapping to grid/guides; angle snapping (0/45/90)
+- [ ] Merge/split outlines; boolean ops on paths
+
+Data & Export
+- [ ] Export: GeoJSON, SVG, DXF, Shapefile (via shp‑write), PNG overlay
+- [ ] Export image with outlines composited; thumbnail generator
+- [ ] Import outlines from JSON/CSV/GeoJSON
+- [ ] Batch export per‑outline files and zips
+
+Persistence & Collaboration
+- [ ] Firestore persistence for projects, images, outlines, and settings
+- [ ] Realtime collaboration (presence, locks, live updates)
+- [ ] Version history (named checkpoints) and outline diffs
+- [ ] Project dashboard: recent, starred, collaborators/roles
+- [ ] Cloud storage for images; import by URL or drag‑drop
+
+Performance & Quality
+- [ ] Workers for sampling/simplification
+- [ ] Optional WASM for heavy geometry ops
+- [ ] Virtualized rendering for many outlines
+- [ ] Error boundaries and structured logging
+- [ ] Unit tests (geometry/state) and e2e tests (Playwright)
+- [ ] PWA/offline with IndexedDB cache
+
+Ops & Deployment
+- [ ] CI/CD to Firebase Hosting (GitHub Actions)
+- [ ] Environments (dev/staging/prod) via project aliases
+- [ ] Opt‑in telemetry for UX improvements
+- [ ] Documentation site with guides and recipes
+
+Accessibility & i18n
+- [ ] Keyboard navigation, focus rings, ARIA
+- [ ] High‑contrast theme + theme switcher
+- [ ] Internationalization scaffolding and first locales
 
 ## ☁️ Deploy (optional: Firebase Hosting)
 
