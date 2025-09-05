@@ -28,7 +28,7 @@ export const useStore = create<State & Actions>((set, get) => ({
   image: undefined,
   outlines: [],
   selectedId: undefined,
-  brush: { size: 6, color: "#ff2d55" },
+  brush: { size: 3, color: "#ff2d55" },
   draft: null,
 
   setImage: (image) => set({ image, outlines: [], selectedId: undefined, draft: null }),
