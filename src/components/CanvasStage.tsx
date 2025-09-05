@@ -27,7 +27,7 @@ export default function CanvasStage() {
   const [ref, bounds] = useMeasure(); // container size
   const imgEl = useImage(image?.src || undefined);
 
-  const stageW = Math.max(300, bounds.width || 900);
+  const stageW = Math.max(300, bounds.width);
   const stageH = Math.max(300, Math.min(700, (bounds.height || 600)));
 
   // fit image into stage

@@ -33,18 +33,14 @@ export default function EditorPage() {
       <Header />
 
       <main className="mx-auto max-w-6xl px-4 py-6">
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <UploadButton />
-          </div>
+        {/* Top tools – keep export here */}
+        <div className="mb-4 flex flex-wrap items-center justify-end gap-3">
           <ExportButton />
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-[18rem_1fr]">
-          <aside>
-            <BrushControls />
-          </aside>
-          <section>
+        {/* Canvas left, brush controls right */}
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_18rem]">
+          <section className="min-w-0">
             {!image ? (
               <div className="panel-tan flex h-[70vh] items-center justify-center p-6 text-center">
                 <div>
@@ -56,6 +52,14 @@ export default function EditorPage() {
               <CanvasStage />
             )}
           </section>
+          <aside>
+            <BrushControls />
+          </aside>
+        </div>
+
+        {/* Bottom bar – Upload buttons at the bottom */}
+        <div className="toolbar mt-6 flex items-center justify-between gap-3">
+          <UploadButton />
         </div>
       </main>
     </div>
