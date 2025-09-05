@@ -127,12 +127,6 @@ npm run preview
   ...
   ```
 
-## 🎨 Screenshots
-
-| Upload + Trace                        | Export Menu                           |
-| ------------------------------------- | ------------------------------------- |
-| ![canvas](docs/screenshot-canvas.png) | ![export](docs/screenshot-export.png) |
-
 ## 🔮 Roadmap
 
 * [ ] Undo / Redo stack
