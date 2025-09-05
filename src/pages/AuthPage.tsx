@@ -2,6 +2,7 @@ import { useState } from "react";
 import { auth, googleProvider } from "../lib/firebase";
 import { signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 
 export default function AuthPage() {
     const nav = useNavigate();
@@ -50,11 +51,7 @@ export default function AuthPage() {
 
     return (
         <div className="min-h-dvh flex flex-col">
-            <div className="w-full bg-gradient-to-b from-sand-600 to-sand-500 shadow-[inset_0_-2px_0_rgba(0,0,0,.25)]">
-                <div className="mx-auto max-w-6xl px-6 py-4">
-                    <h1 className="font-display text-4xl text-white">Sediment<span className="font-light">Sketch</span></h1>
-                </div>
-            </div>
+            <Header />
 
             <main className="flex-1 flex items-center justify-center px-6">
                 <div className="panel w-full max-w-md p-6 space-y-4">

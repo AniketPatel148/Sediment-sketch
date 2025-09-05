@@ -8,19 +8,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../lib/firebase";
 import { useAuth } from "../context/AuthContext";
-
-/** Simple header styled like your mock */
-function Header() {
-  return (
-    <header className="sticky top-0 z-10 w-full border-b border-white/20 bg-gradient-to-b from-sand-500 to-sand-600/90 backdrop-blur">
-      <div className="mx-auto max-w-6xl px-4 py-3">
-        <h1 className="text-2xl tracking-widest font-semibold text-white/95">
-          <span className="font-extralight">Sediment</span> Sketch
-        </h1>
-      </div>
-    </header>
-  );
-}
+import Header from "../components/Header";
 
 export type LandingProps = {
   onPickFile: (file: File) => void;
@@ -82,75 +70,60 @@ export default function Landing() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sand-100 via-sand-100 to-sand-200 text-stone-900">
+    <div className="min-h-screen">
       <Header />
 
-      <main className="mx-auto flex max-w-6xl flex-col items-center px-4 py-10">
-        {/* If not authed -> Auth cards */}
+      <main className="mx-auto max-w-6xl px-4 py-10">
         {!user ? (
-          <div className="grid w-full gap-6 md:grid-cols-2">
-            <section className="panel text-white">
-              <h2 className="mb-4 text-lg font-semibold">Sign in</h2>
-              <button
-                className="btn btn-secondary w-full mb-4"
-                onClick={doGoogle}
-                disabled={busy}
-              >
-                Continue with Google
-              </button>
-
-              <div className="my-3 h-px w-full bg-white/20" />
-
-              <form onSubmit={doEmail} className="space-y-3">
-                <input
-                  type="email"
-                  required
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="input w-full"
-                />
-                <input
-                  type="password"
-                  required
-                  placeholder="Password"
-                  value={pass}
-                  onChange={(e) => setPass(e.target.value)}
-                  className="input w-full"
-                />
-                <div className="flex items-center justify-between">
-                  <span className="text-white/70 text-sm">
-                    {mode === "signin" ? "No account?" : "Have an account?"}{" "}
-                    <button
-                      type="button"
-                      onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-                      className="underline"
-                    >
-                      {mode === "signin" ? "Sign up" : "Sign in"}
-                    </button>
-                  </span>
-                  <button className="btn btn-primary" disabled={busy} type="submit">
-                    {mode === "signin" ? "Sign in" : "Create account"}
+          <section className="mx-auto w-full max-w-lg rounded-2xl border border-white/60 bg-gradient-to-b from-sand-200/40 to-sand-300/50 p-6 shadow-soft backdrop-blur">
+            <h2 className="mb-4 text-xl font-semibold text-stone-900">Sign in</h2>
+            <button
+              className="btn btn-secondary w-full mb-4"
+              onClick={doGoogle}
+              disabled={busy}
+            >
+              Continue with Google
+            </button>
+            <div className="my-3 h-px w-full bg-white/40" />
+            <form onSubmit={doEmail} className="space-y-3">
+              <input
+                type="email"
+                required
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="input w-full"
+              />
+              <input
+                type="password"
+                required
+                placeholder="Password"
+                value={pass}
+                onChange={(e) => setPass(e.target.value)}
+                className="input w-full"
+              />
+              <div className="flex items-center justify-between">
+                <span className="text-stone-700/80 text-sm">
+                  {mode === "signin" ? "No account?" : "Have an account?"}{" "}
+                  <button
+                    type="button"
+                    onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
+                    className="underline"
+                  >
+                    {mode === "signin" ? "Sign up" : "Sign in"}
                   </button>
-                </div>
-                {authErr && <p className="text-red-200 text-sm">{authErr}</p>}
-              </form>
-            </section>
-
-            <section className="panel text-white">
-              <h2 className="mb-2 text-lg font-semibold">What is this?</h2>
-              <p className="text-white/80">
-                Upload a rock image, trace outlines with a brush, and download the
-                coordinates (JSON/CSV/TXT). Signed-in users can keep their work in
-                Firebase.
-              </p>
-            </section>
-          </div>
+                </span>
+                <button className="btn btn-primary" disabled={busy} type="submit">
+                  {mode === "signin" ? "Sign in" : "Create account"}
+                </button>
+              </div>
+              {authErr && <p className="text-red-600 text-sm">{authErr}</p>}
+            </form>
+          </section>
         ) : (
-          // If authed -> Upload card like the video’s landing
-          <section className="panel text-white w-full max-w-2xl">
-            <h2 className="mb-4 text-lg font-semibold">Upload an image to begin</h2>
-            <div className="rounded-lg border border-white/30 bg-white/5 p-4">
+          <section className="mx-auto w-full max-w-3xl rounded-2xl border border-white/70 bg-gradient-to-b from-sand-200/60 to-sand-300/60 p-6 shadow-soft backdrop-blur">
+            <h2 className="mb-4 text-lg font-semibold text-stone-900">Upload an image to begin</h2>
+            <div className="rounded-xl border border-white/50 bg-white/60 p-4">
               <input
                 ref={fileRef}
                 type="file"
@@ -161,11 +134,11 @@ export default function Landing() {
                   if (f) onPick(f);
                 }}
               />
-              <div className="flex items-center justify-between gap-3">
-                <button className="btn btn-sand-200" onClick={() => fileRef.current?.click()}>
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <button className="btn btn-primary" onClick={() => fileRef.current?.click()}>
                   Upload
                 </button>
-                <p className="text-white/70 text-sm">
+                <p className="text-stone-700/80 text-sm">
                   Supported: JPG, PNG, WEBP. You’ll go to the editor after selecting.
                 </p>
               </div>
@@ -173,7 +146,7 @@ export default function Landing() {
                 <img
                   src={preview}
                   alt="preview"
-                  className="mt-4 max-h-64 w-full rounded-md object-contain ring-1 ring-white/20"
+                  className="mt-4 max-h-64 w-full rounded-md object-contain ring-1 ring-white/40"
                 />
               )}
             </div>
