@@ -1,69 +1,147 @@
-# React + TypeScript + Vite
+# 🪨 SedimentSketch
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SedimentSketch is a small full-stack demo web app where you can **upload an image of rocks**,  
+**trace outlines** with a brush (adjustable color & thickness), and **export coordinates** of each outline.
 
-Currently, two official plugins are available:
+Built with **React + Vite + TypeScript + Tailwind + Zustand + Konva**.  
+Backend integration (Firebase / Express + Firestore) can be added later.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+- 📤 Upload any image (JPG/PNG)
+- ✏️ Draw freehand outlines over rocks
+- 🎨 Adjustable brush size & color
+- 🧾 Export coordinates
+  - **All outlines** → TXT / JSON / CSV
+  - **Selected outline only** → TXT / JSON / CSV
+- ⌨️ Keyboard shortcuts
+  - `Esc` → clear outline selection
+- 🗑️ Clear canvas (reset all outlines)
+- Responsive layout with styled header, sidebar controls, and footer toolbar
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- **Frontend:** [React](https://react.dev/), [Vite](https://vitejs.dev/), [TypeScript](https://www.typescriptlang.org/)
+- **Canvas / Drawing:** [Konva](https://konvajs.org/) via [react-konva](https://github.com/konvajs/react-konva)
+- **State Management:** [Zustand](https://zustand-demo.pmnd.rs/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/) with custom sand-tone theme
+- **Utilities:** classnames, react-use-measure
+- **Planned Backend:** Firebase (Auth, Firestore, Storage, Functions with Express)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+
+## 📂 Project Structure
+
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+sediment-sketch/
+├── index.html
+├── vite.config.ts
+├── tailwind.config.js
+├── postcss.config.js
+├── src/
+│   ├── App.tsx
+│   ├── main.tsx
+│   ├── index.css
+│   ├── types.ts
+│   ├── lib/
+│   │   ├── geometry.ts
+│   │   └── download.ts
+│   ├── state/
+│   │   └── useStore.ts
+│   └── components/
+│       ├── Header.tsx
+│       ├── CanvasStage.tsx
+│       ├── BrushControls.tsx
+│       ├── UploadButton.tsx
+│       └── ExportButton.tsx
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+````
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🚀 Getting Started
+
+### 1. Clone & install
+```bash
+git clone https://github.com/<your-username>/sediment-sketch.git
+cd sediment-sketch
+npm install
+````
+
+### 2. Run dev server
+
+```bash
+npm run dev
 ```
+
+Open [http://localhost:5173](http://localhost:5173).
+
+### 3. Build for production
+
+```bash
+npm run build
+npm run preview
+```
+
+## 🖥️ Usage
+
+1. Click **Upload** to add a rock image.
+2. Adjust **Brush Size** and **Color** in the sidebar.
+3. Draw outlines directly on the image.
+4. Select outlines (click them).
+5. Export:
+
+   * **Download Coordinates** → All outlines, TXT
+   * **Download Coordinates (Selected)** → The selected outline, TXT
+   * **More formats** → JSON / CSV
+
+
+## 📦 Export Formats
+
+* **TXT (all outlines):**
+
+  ```txt
+  [{"minX":19,"maxX":405,"minY":15.08,"maxY":224.08},
+   {"minX":427,"maxX":594,"minY":3.08,"maxY":190.08}]
+  ```
+
+* **JSON (all outlines):**
+
+  ```json
+  [
+    {
+      "id": "outline-1",
+      "color": "#ff2d55",
+      "thickness": 6,
+      "bounds": { "minX": 19, "maxX": 405, "minY": 15.08, "maxY": 224.08 },
+      "pointCount": 240
+    }
+  ]
+  ```
+
+* **CSV (all outlines):**
+
+  ```csv
+  outlineId,index,x,y
+  outline-1,0,19,15.08
+  outline-1,1,20,16.2
+  ...
+  ```
+
+## 🎨 Screenshots
+
+| Upload + Trace                        | Export Menu                           |
+| ------------------------------------- | ------------------------------------- |
+| ![canvas](docs/screenshot-canvas.png) | ![export](docs/screenshot-export.png) |
+
+## 🔮 Roadmap
+
+* [ ] Undo / Redo stack
+* [ ] Outlines panel (list, rename, toggle visibility)
+* [ ] Firebase backend (store projects, outlines, and images)
+* [ ] Multi-user project sharing
+* [ ] Auto-trace (edge detection + simplification)
+
+## 🤝 Contributing
+
+PRs and suggestions welcome!
+For major changes, please open an issue first.
