@@ -33,10 +33,6 @@ export default function EditorPage() {
       <Header />
 
       <main className="mx-auto max-w-6xl px-4 py-6">
-        {/* Top tools – keep export here */}
-        <div className="mb-4 flex flex-wrap items-center justify-end gap-3">
-          <ExportButton />
-        </div>
 
         {/* Canvas left, brush controls right */}
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_18rem]">
@@ -57,9 +53,10 @@ export default function EditorPage() {
           </aside>
         </div>
 
-        {/* Bottom bar – Upload buttons at the bottom */}
-        <div className="toolbar mt-6 flex items-center justify-between gap-3">
+        {/* Bottom bar – Upload + Download inline */}
+        <div className="toolbar mt-6 flex flex-wrap items-center justify-start gap-3">
           <UploadButton />
+          <ExportButton />
         </div>
       </main>
     </div>
