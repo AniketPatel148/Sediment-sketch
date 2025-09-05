@@ -1,23 +1,24 @@
 # 🪨 SedimentSketch
 
-SedimentSketch is a small full-stack demo web app where you can **upload an image of rocks**,  
+SedimentSketch is a small web app where you can **upload an image of rocks**,
 **trace outlines** with a brush (adjustable color & thickness), and **export coordinates** of each outline.
 
-Built with **React + Vite + TypeScript + Tailwind + Zustand + Konva**.  
-Backend integration (Firebase / Express + Firestore) can be added later.
+It includes basic authentication and protected routes so signed‑in users can access the editor.
+
+Built with **React + Vite + TypeScript + Tailwind + Zustand + react‑konva** and **Firebase Auth**.
 
 ## ✨ Features
 
-- 📤 Upload any image (JPG/PNG)
-- ✏️ Draw freehand outlines over rocks
-- 🎨 Adjustable brush size & color
-- 🧾 Export coordinates
+- 📤 Upload any image (JPG/PNG/WEBP)
+- ✏️ Draw freehand outlines over the image
+- 🎨 Adjustable brush size & color (right‑side panel)
+- 🧾 Export coordinates (bottom toolbar)
   - **All outlines** → TXT / JSON / CSV
   - **Selected outline only** → TXT / JSON / CSV
-- ⌨️ Keyboard shortcuts
-  - `Esc` → clear outline selection
+- 🔐 Auth + protected routes (Firebase: Google and Email/Password)
+- ⌨️ Keyboard shortcut: `Esc` clears selection
 - 🗑️ Clear canvas (reset all outlines)
-- Responsive layout with styled header, sidebar controls, and footer toolbar
+- Responsive layout with shared header typography
 
 
 ## 🛠️ Tech Stack
@@ -26,8 +27,9 @@ Backend integration (Firebase / Express + Firestore) can be added later.
 - **Canvas / Drawing:** [Konva](https://konvajs.org/) via [react-konva](https://github.com/konvajs/react-konva)
 - **State Management:** [Zustand](https://zustand-demo.pmnd.rs/)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/) with custom sand-tone theme
+- **Auth:** Firebase Authentication (Google, Email/Password)
 - **Utilities:** classnames, react-use-measure
-- **Planned Backend:** Firebase (Auth, Firestore, Storage, Functions with Express)
+- **Optional Hosting:** Firebase Hosting
 
 
 ## 📂 Project Structure
@@ -39,22 +41,32 @@ sediment-sketch/
 ├── vite.config.ts
 ├── tailwind.config.js
 ├── postcss.config.js
+├── firebase.json                # optional hosting config
+├── .firebaserc                  # optional hosting project alias
 ├── src/
-│   ├── App.tsx
-│   ├── main.tsx
-│   ├── index.css
+│   ├── main.tsx                 # router + providers
+│   ├── index.css                # Tailwind + UI styles
 │   ├── types.ts
-│   ├── lib/
-│   │   ├── geometry.ts
-│   │   └── download.ts
+│   ├── context/
+│   │   └── AuthContext.tsx      # Firebase auth provider + hook
+│   ├── routes/
+│   │   └── Protected.tsx        # route guard
+│   ├── pages/
+│   │   ├── AuthPage.tsx         # sign in / sign up
+│   │   ├── Landing.tsx          # upload entry
+│   │   └── EditorPage.tsx       # editor shell/layout
+│   ├── components/
+│   │   ├── Header.tsx
+│   │   ├── CanvasStage.tsx
+│   │   ├── BrushControls.tsx
+│   │   ├── UploadButton.tsx
+│   │   └── ExportButton.tsx
 │   ├── state/
-│   │   └── useStore.ts
-│   └── components/
-│       ├── Header.tsx
-│       ├── CanvasStage.tsx
-│       ├── BrushControls.tsx
-│       ├── UploadButton.tsx
-│       └── ExportButton.tsx
+│   │   └── useStore.ts          # outlines, brush, image
+│   └── lib/
+│       ├── geometry.ts
+│       ├── download.ts
+│       └── firebase.ts          # Firebase client init
 
 ````
 
@@ -67,7 +79,25 @@ cd sediment-sketch
 npm install
 ````
 
-### 2. Run dev server
+### 2. Configure Firebase (Auth)
+
+Create a Firebase project and enable providers:
+- Authentication → Sign-in method → enable Google and Email/Password
+
+Create `.env` in the project root with your config:
+
+```
+VITE_FIREBASE_API_KEY=...
+VITE_FIREBASE_AUTH_DOMAIN=...
+VITE_FIREBASE_PROJECT_ID=...
+VITE_FIREBASE_STORAGE_BUCKET=...
+VITE_FIREBASE_MESSAGING_SENDER_ID=...
+VITE_FIREBASE_APP_ID=...
+```
+
+Note: The file must be at the root (not under `src/`).
+
+### 3. Run dev server
 
 ```bash
 npm run dev
@@ -75,7 +105,7 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173).
 
-### 3. Build for production
+### 4. Build for production
 
 ```bash
 npm run build
@@ -84,27 +114,27 @@ npm run preview
 
 ## 🖥️ Usage
 
-1. Click **Upload** to add a rock image.
-2. Adjust **Brush Size** and **Color** in the sidebar.
-3. Draw outlines directly on the image.
-4. Select outlines (click them).
-5. Export:
-
-   * **Download Coordinates** → All outlines, TXT
-   * **Download Coordinates (Selected)** → The selected outline, TXT
-   * **More formats** → JSON / CSV
+1. Visit `/auth` (or `/`) and sign in (Google or Email/Password).
+2. Go to `/start` to upload an image (or use the Upload button in the editor toolbar later).
+3. You’ll be routed to `/editor`.
+4. Adjust **Brush Size** and **Color** in the right panel; draw on the image.
+5. Click an outline to select it; press `Esc` to clear selection.
+6. Bottom toolbar → Upload and Export controls:
+   - Download TXT/JSON/CSV for all outlines or the selected one.
 
 
 ## 📦 Export Formats
 
-* **TXT (all outlines):**
+The app stores points in image space. Exports represent what’s on screen:
+
+* **TXT (all outlines):** array of bounding boxes
 
   ```txt
   [{"minX":19,"maxX":405,"minY":15.08,"maxY":224.08},
    {"minX":427,"maxX":594,"minY":3.08,"maxY":190.08}]
   ```
 
-* **JSON (all outlines):**
+* **JSON (all outlines):** id + color + thickness + bounds + pointCount
 
   ```json
   [
@@ -118,7 +148,7 @@ npm run preview
   ]
   ```
 
-* **CSV (all outlines):**
+* **CSV (all outlines):** rows of `outlineId,index,x,y`
 
   ```csv
   outlineId,index,x,y
@@ -127,13 +157,28 @@ npm run preview
   ...
   ```
 
+## 🔎 Notes & Limitations
+
+- Outlines are kept in client state (Zustand) only; no persistence yet.
+- No undo/redo yet.
+- The canvas fits the image to the available stage while keeping aspect ratio.
+
 ## 🔮 Roadmap
 
 * [ ] Undo / Redo stack
 * [ ] Outlines panel (list, rename, toggle visibility)
-* [ ] Firebase backend (store projects, outlines, and images)
+* [ ] Firestore persistence for projects/outlines
 * [ ] Multi-user project sharing
 * [ ] Auto-trace (edge detection + simplification)
+
+## ☁️ Deploy (optional: Firebase Hosting)
+
+```
+npm run build
+firebase login
+firebase use <your-project>
+firebase deploy --only hosting
+```
 
 ## 🤝 Contributing
 
